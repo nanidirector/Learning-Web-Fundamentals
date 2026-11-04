@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Website</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <h2 class="heading">Your Blog</h2>
+    <h2 class="heading">
+        Total Blog: <span id="totalBlogs">0</span>
+    </h2>
+
+    <form id="blogForm">
+
+        <label>Image Url:</label>
+        <input type="text" id="imageUrl" required>
+
+        <br><br>
+
+        <label>Title:</label>
+        <input type="text" id="blogTitle" required>
+
+        <br><br>
+
+        <label>Blog Description:</label>
+        <input type="text" id="blogDescription" required>
+
+        <br><br>
+
+        <button type="submit">POST BLOG</button>
+
+    </form>
+
+    <hr>
+
+    <div id="blogContainer"></div>
+
+    <script src="index.js"></script>
+
+</body>
+</html>
