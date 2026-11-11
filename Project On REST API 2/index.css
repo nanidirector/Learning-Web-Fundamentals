@@ -1,54 +1,84 @@
-
 body {
     font-family: Arial, sans-serif;
-    margin: 10px;
-    background-color: white;
+    background-color: #ffffff;
+    color: #000000;
+    margin: 0;
+    padding: 30px 15px;
+}
+
+.app-container {
+    max-width: 850px;
+    margin: 0 auto;
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 0;
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
 }
 
-.filter {
-    text-align: center;
-    margin-bottom: 5px;
+.form-card {
+    border: 1px solid black;
+    padding: 15px;
+    margin-bottom: 30px;
+    background: #ffffff;
+    box-shadow: 4px 4px 0px black;
 }
 
-form {
-    margin-top: 30px;
-    width: 250px;
-}
-
-form div {
-    margin-bottom: 2px;
-}
-
-form label {
-    display: inline-block;
-    width: 75px;
-}
-
-input {
-    width: 140px;
+input, select {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid black;
+    font-size: 14px;
 }
 
 button {
+    padding: 10px 20px;
+    background-color: #90ee90; /* Light Green */
+    border: 1px solid black;
     cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
 }
 
-#bookingList {
-    margin-top: 40px;
+button:hover {
+    background-color: #76c976;
 }
 
-.booking {
-    margin-bottom: 5px;
+.booking-item {
+    border: 1px solid black;
+    padding: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 2px 2px 0px black;
 }
 
-.booking span {
-    margin-right: 8px;
+.booking-item span {
+    flex: 1;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.booking button {
-    margin-left: 5px;
+.bus-badge {
+    background-color: #90ee90;
+    border: 1px solid black;
+    padding: 4px 8px;
+    font-weight: bold;
+    flex: 0 0 60px !important;
+    text-align: center;
+}
+
+.booking-item button {
+    padding: 5px 10px;
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    .booking-item { flex-direction: column; align-items: flex-start; }
+    .booking-item span { margin-bottom: 10px; }
+    .booking-item button { margin-left: 0; margin-right: 10px; margin-top: 5px; }
 }

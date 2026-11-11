@@ -1,3 +1,5 @@
+const baseUrl ="https://crudcrud.com/api/99bc6cff779d4d55a1963475bd75ba78";
+
 function handleFormSubmit(event) {
   event.preventDefault();
   const userDetails = {
@@ -7,7 +9,7 @@ function handleFormSubmit(event) {
   };
   axios
     .post(
-      "https://crudcrud.com/api/5519d12fca344fd6b10665aea264519d/appointmentData",
+      `${baseUrl}/userDetails`,
       userDetails
     )
     .then((response) => displayUserOnScreen(response.data))
