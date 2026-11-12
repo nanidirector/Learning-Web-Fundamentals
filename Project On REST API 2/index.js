@@ -1,5 +1,5 @@
-// Your API URL with /bookings at the end
-const apiURL = "https://crudcrud.com/api/fe9dc1e0aa2f43909fb045cf8d9cbd80/bookings";
+// API URL with /bookings at the end
+const apiURL = "https://crudcrud.com/api/0875fa21d02f4c6a9affe6ced32bb3dd/bookings";
 
 const form = document.getElementById("bookingForm");
 const nameInput = document.getElementById("name");
@@ -28,7 +28,7 @@ function loadBookings() {
             return;
         }
 
-        // Loop through data and show it
+        // Loop through data
         for (let i = 0; i < response.data.length; i++) {
             let booking = response.data[i];
             let div = document.createElement("div");
@@ -51,7 +51,7 @@ function loadBookings() {
     });
 }
 
-// 2. ADD OR UPDATE (AXIOS)
+// 2. Adding(AXIOS)
 form.addEventListener("submit", function(event) {
     event.preventDefault();
 
