@@ -1,48 +1,39 @@
-// API URL with /bookings at the end
-const apiURL = "https://crudcrud.com/api/0875fa21d02f4c6a9affe6ced32bb3dd/bookings";
-
-const form = document.getElementById("bookingForm");
-const nameInput = document.getElementById("name");
-const emailInput = document.getElementById("email");
-const phoneInput = document.getElementById("phone");
-const busInput = document.getElementById("busNumber");
-const list = document.getElementById("bookingList");
-const submitBtn = document.getElementById("submitBtn");
+const apiURL = "https://crudcrud.com/api/45d4d18ecb014f40ada4a5025f40a2ed/bookings";
 
 let editId = null;
 
-// 1. GET DATA (AXIOS)
+// show all bookings
 function loadBookings() {
+    const list = document.getElementById("bookingList");
     list.innerHTML = "<p>Loading...</p>";
 
     axios.get(apiURL)
     .then(function(response) {
-        // Log to console so you can see the data
         console.log("Data from API:", response.data);
 
-        list.innerHTML = ""; // Clear loading text
+        list.innerHTML = "";
 
-        // If data is empty
         if (response.data.length === 0) {
             list.innerHTML = "<p>No bookings yet. Try adding one!</p>";
             return;
         }
 
-        // Loop through data
         for (let i = 0; i < response.data.length; i++) {
-            let booking = response.data[i];
-            let div = document.createElement("div");
-            div.className = "booking-item";
+            const booking = response.data[i];
+            const item = document.getElementById("bookingTemplate").content.cloneNode(true);
 
-            div.innerHTML = `
-                <span><b>${booking.name}</b></span>
-                <span>${booking.email}</span>
-                <span>${booking.phone}</span>
-                <span class="bus-badge">${booking.bus}</span>
-                <button onclick="editBooking('${booking._id}')">Edit</button>
-                <button onclick="deleteBooking('${booking._id}')">Delete</button>
-            `;
-            list.appendChild(div);
+            item.querySelector(".b-name").textContent = booking.name;
+            item.querySelector(".b-email").textContent = booking.email;
+            item.querySelector(".b-phone").textContent = booking.phone;
+            item.querySelector(".bus-badge").textContent = booking.bus;
+            item.querySelector(".edit-btn").onclick = function() {
+                editBooking(booking._id);
+            };
+            item.querySelector(".delete-btn").onclick = function() {
+                deleteBooking(booking._id);
+            };
+
+            list.appendChild(item);
         }
     })
     .catch(function(error) {
@@ -51,43 +42,42 @@ function loadBookings() {
     });
 }
 
-// 2. Adding(AXIOS)
+// add or update a booking
+const form = document.getElementById("bookingForm");
+
 form.addEventListener("submit", function(event) {
     event.preventDefault();
 
-    let newBooking = {
-        name: nameInput.value,
-        email: emailInput.value,
-        phone: phoneInput.value,
-        bus: busInput.value
+    const newBooking = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        bus: document.getElementById("busNumber").value
     };
 
-    // If we are editing, CrudCrud requires the _id in the body
     if (editId !== null) {
-        newBooking._id = editId; 
+        newBooking._id = editId;
     }
 
     if (editId === null) {
-        // --- POST (Create) ---
         axios.post(apiURL, newBooking)
         .then(function(response) {
             console.log("Saved successfully:", response.data);
-            form.reset();       // Clear form
-            loadBookings();     // Refresh screen instantly
+            form.reset();
+            loadBookings();
         })
         .catch(function(error) {
             console.log("Save Error:", error);
             alert("Could not save data.");
         });
     } else {
-        // --- PUT (Update) ---
         axios.put(apiURL + "/" + editId, newBooking)
         .then(function(response) {
             console.log("Updated successfully:", response.data);
             form.reset();
             editId = null;
-            submitBtn.innerText = "Book Now";
-            loadBookings();     // Refresh screen instantly
+            document.getElementById("submitBtn").innerText = "Book Now";
+            loadBookings();
         })
         .catch(function(error) {
             console.log("Update Error:", error);
@@ -96,36 +86,35 @@ form.addEventListener("submit", function(event) {
     }
 });
 
-// 3. DELETE (AXIOS)
+// delete a booking
 function deleteBooking(id) {
     axios.delete(apiURL + "/" + id)
     .then(function() {
         console.log("Deleted successfully");
-        loadBookings(); // Refresh screen instantly
+        loadBookings();
     })
     .catch(function(error) {
         console.log("Delete Error:", error);
     });
 }
 
-// 4. EDIT (AXIOS)
+// fill the form with a booking so it can be edited
 function editBooking(id) {
     axios.get(apiURL + "/" + id)
     .then(function(response) {
-        let booking = response.data;
-        
-        nameInput.value = booking.name;
-        emailInput.value = booking.email;
-        phoneInput.value = booking.phone;
-        busInput.value = booking.bus;
+        const booking = response.data;
+
+        document.getElementById("name").value = booking.name;
+        document.getElementById("email").value = booking.email;
+        document.getElementById("phone").value = booking.phone;
+        document.getElementById("busNumber").value = booking.bus;
 
         editId = id;
-        submitBtn.innerText = "Update";
+        document.getElementById("submitBtn").innerText = "Update";
     })
     .catch(function(error) {
         console.log("Edit Error:", error);
     });
 }
 
-// Run on page load
 loadBookings();

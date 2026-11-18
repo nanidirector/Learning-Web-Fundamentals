@@ -29,6 +29,16 @@
         <h2>Recent Bookings</h2>
         <div id="bookingList"></div>
     </div>
+    <template id="bookingTemplate">
+    <div class="booking-item">
+        <span><b class="b-name"></b></span>
+        <span class="b-email"></span>
+        <span class="b-phone"></span>
+        <span class="bus-badge"></span>
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn">Delete</button>
+    </div>
+</template>
 
     <!-- AXIOS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
