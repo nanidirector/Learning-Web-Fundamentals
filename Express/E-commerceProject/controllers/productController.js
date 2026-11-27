@@ -1,16 +1,23 @@
-
+const productService =require('../services/productService');
 const getAllProducts = (req, res) => {
-    res.send("Fetching all products");
+    const products =productService.getAllProducts();
+    res.json(products);
 };
 
-const addProduct = (req, res) => {
-    res.send("Adding a new product");
-};
+const addProduct = (req, res) =>{
+    const product =req.body;
+    const newProduct  =productService.addProduct(product);
+    res.status(201).json({
+        message :"Product added Successfully",
+        product: newProduct
+    });
+}
 
 const getProductById = (req, res) => {
-    const productId = req.params.id;
+    const id = req.params.id;
+    const product =productService.getProductById(id);
 
-    res.send(`Fetching product with ID: ${productId}`);
+    res.json(product);
 };
 
 module.exports = {
