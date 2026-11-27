@@ -1,0 +1,24 @@
+
+let products = [];
+
+const addProduct = (req, res) => {
+
+    console.log("Received product:", req.body);
+
+    const product = {
+        id: products.length + 1,
+        productName: req.body.productName
+    };
+
+    products.push(product);
+
+    res.status(201).json({
+        message: "Product added successfully!",
+        product: product
+    });
+
+};
+
+module.exports = {
+    addProduct
+};

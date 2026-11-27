@@ -10,7 +10,8 @@
 
     <h1>Add New Product</h1>
 
-    <form>
+    <form id="productForm">
+
         <label for="product">Product Name</label>
 
         <input
@@ -18,10 +19,51 @@
             id="product"
             name="productName"
             placeholder="Enter product name"
+            required
         >
 
         <button type="submit">Add Product</button>
+
     </form>
+
+    <h3>Server Response:</h3>
+    <p id="response"></p>
+
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+
+        const productForm = document.getElementById('productForm');
+
+        productForm.addEventListener('submit', async (event) => {
+
+            event.preventDefault();
+
+            const productName = document.getElementById('product').value;
+
+            try {
+
+                const result = await axios.post('/api/products', {
+                    productName: productName
+                });
+
+                document.getElementById('response').innerText =
+                    result.data.message + " " + result.data.product.productName;
+
+                productForm.reset();
+
+            } catch (error) {
+
+                console.log(error);
+                document.getElementById('response').innerText =
+                    "Something went wrong!";
+
+            }
+
+        });
+
+    </script>
 
 </body>
 </html>

@@ -1,0 +1,22 @@
+
+const express = require('express');
+
+const router = express.Router();
+
+const path = require('path');
+
+const productController = require('../controllers/productController');
+
+// GET request - Serve HTML form
+router.get('/', (req, res) => {
+
+    res.sendFile(
+        path.join(__dirname, '..', 'VIEW', 'products.html')
+    );
+
+});
+
+// POST request - Add product
+router.post('/', productController.addProduct);
+
+module.exports = router;

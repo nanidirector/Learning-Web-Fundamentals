@@ -1,19 +1,17 @@
 
 const express = require('express');
-const path = require('path');
 
 const app = express();
 
-// GET route to serve the HTML file
-app.get('/api/products', (req, res) => {
+const productRoutes = require('./routes/productRoutes');
 
-    res.sendFile(
-        path.join(__dirname, 'VIEW', 'products.html')
-    );
+// Middleware to parse JSON data
+app.use(express.json());
 
-});
+// Product routes
+app.use('/api/products', productRoutes);
 
-// Start the server
+// Start server
 app.listen(3001, () => {
     console.log('Server running at http://localhost:3001');
 });
